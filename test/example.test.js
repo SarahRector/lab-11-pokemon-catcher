@@ -1,19 +1,43 @@
 // IMPORT MODULES under test here:
 // import { example } from '../example.js';
-
+import { findById } from '../pokeUtils.js';
 
 const test = QUnit.test;
 
-test('time to test a function', (expect) => {
+let pokemonStats = [
+    {
+        pokemon: 'bulbasaur',
+        encountered: 0,
+        captured: 0
+    },
+    {
+        pokemon: 'venusaur-mega',
+        encountered: 0,
+        captured: 0
+    },
+    {
+        pokemon: 'ivysaur',
+        encountered: 0,
+        captured: 0,
+    },
+];
+
+test('find pokemon by id', (assert) => {
     //Arrange
     // Set up your arguments and expectations
-    const expected = true;
+    const itemId1 = 'ivysaur';
+    const itemId2 = 'charmander';
+    const expectedId1 = pokemonStats[2];
+    const expectedId2 = pokemonStats[3];
     
     //Act 
     // Call the function you're testing and set the result to a const
-    const actual = false;
+    const actual1 = findById(pokemonStats, itemId1);
+    const actual2 = findById(pokemonStats, itemId2);
 
     //Expect
     // Make assertions about what is expected versus the actual result
-    expect.equal(actual, expected);
+    assert.equal(expectedId1, actual1);
+    assert.equal(expectedId2, actual2);
+
 });

@@ -1,6 +1,6 @@
 // import functions and grab DOM elements
 import { pokemonData } from './data.js';
-import { getRandomPokemon } from './pokeUtils.js';
+import { getRandomPokemon, findById } from './pokeUtils.js';
 
 const nextButton = document.querySelector('#next-container');
 const triesTally = document.getElementById('tries');
@@ -8,13 +8,24 @@ const triesTally = document.getElementById('tries');
 // initialize state
 const pokemon = pokemonData.slice();
 let tries = 0;
-let totalTries = tries >= 10;
+
+const labels = document.querySelectorAll('label');
+/*let totalTries = tries >= 10;*/
+// let pokemonType = pokemon;
 
 // set event listeners to update state and DOM
 function setPage() {
-    if (totalTries <= 10) {
+    if (tries <= 10) {
         triesTally.textContent = tries++;
-        alert('show results');
+    } else if (tries >= 10) {
+        /*const localStorageData = {
+            tries: triesTally,
+            pokemonType: pokemonType
+        };
+        const stringyData = JSON.stringify(localStorageData);
+
+        localStorage.setItem('DATA', stringyData);*/
+        window.location = '../results-page/index.html';
     }
 
     const randomPokemon1 = getRandomPokemon(pokemon);
@@ -25,12 +36,7 @@ function setPage() {
         randomPokemon2 = getRandomPokemon(pokemon);
         randomPokemon3 = getRandomPokemon(pokemon);
     }
-    console.log(randomPokemon3);
-    console.log(randomPokemon2);
-    console.log(randomPokemon1);
 
-
-    const labels = document.querySelectorAll('label');
 
     const pokemonLabel1 = labels[0];
     const pokemonInput1 = pokemonLabel1.children[0];
@@ -67,9 +73,29 @@ function setPage() {
     
 }
 
-function eventHandler(e) {
+
+function eventHandler() {
     nextButton.classList.remove('hidden');
-    console.log(tries);
+    const localStorageJournal = localStorage.getItem('JOURNAL') || '[]';
+    const journal = JSON.parse(localStorageJournal);
+    const capturedInput = (labels.value);
+
+    let itemInJournal = findById(journal, pokemonData.id);
+
+    if (!itemInJournal) {
+        const initializedJournalItem = {
+            id: pokemonData.id,
+            captured: capturedInput
+        };
+        journal.push(initializedJournalItem);
+    } else {
+        itemInJournal.captured = itemInJournal.captured + capturedInput;
+    }
+    const stringyJournal = JSON.stringify(localStorageJournal);
+    localStorage.setItem('JOURNAL', stringyJournal);
+    console.log(journal);
+
+
 }
 
 nextButton.addEventListener('click', setPage);
