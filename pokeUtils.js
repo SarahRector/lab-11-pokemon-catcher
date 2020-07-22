@@ -22,3 +22,35 @@ export function getJournal() {
     const journal = JSON.parse(rawJournal) || [];
     return journal;
 }
+
+export function encounteredPokemon(pokemonEncountered, id) {
+    let encountered = findById(pokemonEncountered, id);
+
+    if (encountered) {
+        encountered.encounters++;
+
+    } else {
+        const newEncounter = {
+            id: id,
+            encounters: 1,
+            caught: 0
+        };
+        pokemonEncountered.push(newEncounter);
+    }
+}
+
+export function chosenPokemon(pokemonEncountered, id) {
+    let caught = findById(pokemonEncountered, id);
+
+    if (caught) {
+        caught.caught++;
+
+    } else {
+        const newCaught = {
+            id: id,
+            encounters: 1,
+            caught: 1
+        };
+        pokemonEncountered.push(newCaught);
+    }
+}
