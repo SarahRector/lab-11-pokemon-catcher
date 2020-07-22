@@ -9,7 +9,7 @@ const triesTally = document.getElementById('tries');
 const pokemon = pokemonData.slice();
 let tries = 0;
 
-let pokemonEncountered = [];
+//let pokemonEncountered = [];
 
 
 const labels = document.querySelectorAll('label');
@@ -92,7 +92,7 @@ function eventHandler(e) {
     
     const journal = JSON.parse(localStorageJournal);
     let itemInJournal = findById(journal, e.target.value);
-    console.log(itemInJournal, e.target.value);
+    
     if (!itemInJournal) {
         const initializedJournalItem = {
             pokemon: e.target.value,

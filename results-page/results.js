@@ -1,13 +1,63 @@
-/*const pokemonCount = document.getElementById('pokemon-count');
+const pokemonCount = document.getElementById('pokemon-count');
 
-const data = JSON.parse(localStorage.getItem('DATA'));
-pokemonCount.innerText = data.tries;*/
+const journal = JSON.parse(localStorage.getItem('JOURNAL'));
+pokemonCount.innerText = journal.captured;
+console.log(journal);
 
-/*import { pokemonData } from '../data.js';
-import { findById, getJournal } from '../pokeUtils.js';
+function mungeNames(journalArray) {
+    let names = [];
+    for (let i = 0; i < journalArray.length; i++) {
+        const pokemon = journalArray[i];
+        names.push(pokemon.pokemon);
+    }
+    return names;
+}
 
-const journal = getJournal();
+function mungeCaught(journalArray) {
+    let caught = [];
+    for (let i = 0; i < journalArray; i++) {
+        const pokemonCaught = journalArray[i];
+        caught.push(pokemonCaught.captured);
+    }
+    return caught;
+}
+console.log(journal[0].captured);
 
-for (let i = 0; i < journal[i]; i++) {
-
-}*/
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, { 
+    type: 'bar',
+    data: {
+        labels: mungeNames(journal),
+        datasets: [{
+            label: 'Pokemon Caught',
+            data: mungeCaught(journal),
+            backgroundColor: [
+                'green'
+            ],
+            borderColor: [
+                'black'
+            ],
+            borderWidth: 1
+        },
+        {
+            label: 'Pokemon Encountered',
+            data: mungeCaught(journal),
+            backgroundColor: [
+                'purple'
+            ],
+            borderColor: [
+                'black'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});

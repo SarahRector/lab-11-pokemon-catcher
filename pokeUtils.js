@@ -6,7 +6,7 @@ export function getRandomPokemon(pokemonArray) {
 }
 
 export function findById(pokemonData, id) {
-    console.log(pokemonData, id);
+    
     for (let i = 0; i < pokemonData.length; i++) {
         const pokeData = pokemonData[i];
 
