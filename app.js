@@ -9,6 +9,7 @@ const triesTally = document.getElementById('tries');
 const pokemon = pokemonData.slice();
 let tries = 0;
 
+let pokemonEncountered = [];
 
 
 const labels = document.querySelectorAll('label');
@@ -45,7 +46,7 @@ function setPage() {
     const pokemonImg1 = pokemonLabel1.children[1];
     const pokemonName1 = pokemonLabel1.children[2];
 
-    pokemonInput1.value = randomPokemon1.id;
+    pokemonInput1.value = randomPokemon1.pokemon;
     pokemonImg1.src = randomPokemon1.url_image;
     pokemonName1.textContent = randomPokemon1.pokemon;
 
@@ -54,7 +55,7 @@ function setPage() {
     const pokemonImg2 = pokemonLabel2.children[1];
     const pokemonName2 = pokemonLabel2.children[2];
 
-    pokemonInput2.value = randomPokemon2.id;
+    pokemonInput2.value = randomPokemon2.pokemon;
     pokemonImg2.src = randomPokemon2.url_image;
     pokemonName2.textContent = randomPokemon2.pokemon;
 
@@ -63,48 +64,52 @@ function setPage() {
     const pokemonImg3 = pokemonLabel3.children[1];
     const pokemonName3 = pokemonLabel3.children[2];
 
-    pokemonInput3.value = randomPokemon3.id;
+    pokemonInput3.value = randomPokemon3.pokemon;
     pokemonImg3.src = randomPokemon3.url_image;
     pokemonName3.textContent = randomPokemon3.pokemon;
     
-    let pokemonEncountered = 
 
     pokemonInput1.addEventListener('click', eventHandler);
     pokemonInput2.addEventListener('click', eventHandler);
     pokemonInput3.addEventListener('click', eventHandler);
 
+    const localStorageJournal = localStorage.getItem('JOURNAL') || '[]';
+    
+    const journal = JSON.parse(localStorageJournal);
 
-    encounteredPokemon(pokemonEncountered, randomPokemon1.id);
-    encounteredPokemon(pokemonEncountered, randomPokemon2.id);
-    encounteredPokemon(pokemonEncountered, randomPokemon3.id);
+    encounteredPokemon(journal, randomPokemon1.pokemon);
+    encounteredPokemon(journal, randomPokemon2.pokemon);
+    encounteredPokemon(journal, randomPokemon3.pokemon);
     nextButton.classList.add('hidden');
     
 }
 
 
-function eventHandler() {
+function eventHandler(e) {
+    //
     nextButton.classList.remove('hidden');
     const localStorageJournal = localStorage.getItem('JOURNAL') || '[]';
     
-    const stringyJournal = JSON.stringify(localStorageJournal);
-    localStorage.setItem('JOURNAL', stringyJournal);
     const journal = JSON.parse(localStorageJournal);
-
-    let itemInJournal = findById(journal, pokemonData.pokemon);
-
+    let itemInJournal = findById(journal, e.target.value);
+    console.log(itemInJournal, e.target.value);
     if (!itemInJournal) {
         const initializedJournalItem = {
-            id: pokemonData.pokemon,
+            pokemon: e.target.value,
             captured: 1,
-            encountered: 1
+            encountered: 1,
+          
         };
         journal.push(initializedJournalItem);
     } else {
         itemInJournal.captured++;
         itemInJournal.encountered++;
+
     }
-
-
+    
+    
+    const stringyJournal = JSON.stringify(journal);
+    localStorage.setItem('JOURNAL', stringyJournal);
 }
 
 nextButton.addEventListener('click', setPage);
