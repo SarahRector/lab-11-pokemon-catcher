@@ -1,6 +1,6 @@
 // import functions and grab DOM elements
 import { pokemonData } from './data.js';
-import { getRandomPokemon, findById } from './pokeUtils.js';
+import { getRandomPokemon, findById, encounteredPokemon } from './pokeUtils.js';
 
 const nextButton = document.querySelector('#next-container');
 const triesTally = document.getElementById('tries');
@@ -8,6 +8,8 @@ const triesTally = document.getElementById('tries');
 // initialize state
 const pokemon = pokemonData.slice();
 let tries = 0;
+
+
 
 const labels = document.querySelectorAll('label');
 /*let totalTries = tries >= 10;*/
@@ -64,11 +66,17 @@ function setPage() {
     pokemonInput3.value = randomPokemon3.id;
     pokemonImg3.src = randomPokemon3.url_image;
     pokemonName3.textContent = randomPokemon3.pokemon;
+    
+    let pokemonEncountered = 
 
     pokemonInput1.addEventListener('click', eventHandler);
     pokemonInput2.addEventListener('click', eventHandler);
     pokemonInput3.addEventListener('click', eventHandler);
 
+
+    encounteredPokemon(pokemonEncountered, randomPokemon1.id);
+    encounteredPokemon(pokemonEncountered, randomPokemon2.id);
+    encounteredPokemon(pokemonEncountered, randomPokemon3.id);
     nextButton.classList.add('hidden');
     
 }
@@ -77,22 +85,24 @@ function setPage() {
 function eventHandler() {
     nextButton.classList.remove('hidden');
     const localStorageJournal = localStorage.getItem('JOURNAL') || '[]';
+    
+    const stringyJournal = JSON.stringify(localStorageJournal);
+    localStorage.setItem('JOURNAL', stringyJournal);
     const journal = JSON.parse(localStorageJournal);
-
 
     let itemInJournal = findById(journal, pokemonData.pokemon);
 
     if (!itemInJournal) {
         const initializedJournalItem = {
             id: pokemonData.pokemon,
-            captured: 1
+            captured: 1,
+            encountered: 1
         };
         journal.push(initializedJournalItem);
     } else {
         itemInJournal.captured++;
+        itemInJournal.encountered++;
     }
-    const stringyJournal = JSON.stringify(localStorageJournal);
-    localStorage.setItem('JOURNAL', stringyJournal);
 
 
 }
