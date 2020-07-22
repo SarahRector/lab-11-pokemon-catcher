@@ -9,11 +9,12 @@ export function findById(pokemonData, id) {
     for (let i = 0; i < pokemonData.length; i++) {
         const pokeData = pokemonData[i];
 
-        if (pokeData.id === id) {
+        if (pokeData.pokemon === id) {
             return pokeData;
+        /*} else {
+            return null;*/
         }
     }
-    return null;
 }
 
 export function getJournal() {

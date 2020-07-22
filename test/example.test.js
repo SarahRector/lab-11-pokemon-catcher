@@ -37,7 +37,7 @@ test('find pokemon by id', (assert) => {
 
     //Expect
     // Make assertions about what is expected versus the actual result
-    assert.equal(expectedId1, actual1);
-    assert.equal(expectedId2, actual2);
+    assert.equal(actual1, expectedId1);
+    assert.equal(actual2, expectedId2);
 
 });

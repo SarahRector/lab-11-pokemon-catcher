@@ -78,22 +78,21 @@ function eventHandler() {
     nextButton.classList.remove('hidden');
     const localStorageJournal = localStorage.getItem('JOURNAL') || '[]';
     const journal = JSON.parse(localStorageJournal);
-    const capturedInput = (labels.value);
 
-    let itemInJournal = findById(journal, pokemonData.id);
+
+    let itemInJournal = findById(journal, pokemonData.pokemon);
 
     if (!itemInJournal) {
         const initializedJournalItem = {
-            id: pokemonData.id,
-            captured: capturedInput
+            id: pokemonData.pokemon,
+            captured: 1
         };
         journal.push(initializedJournalItem);
     } else {
-        itemInJournal.captured = itemInJournal.captured + capturedInput;
+        itemInJournal.captured++;
     }
     const stringyJournal = JSON.stringify(localStorageJournal);
     localStorage.setItem('JOURNAL', stringyJournal);
-    console.log(journal);
 
 
 }
