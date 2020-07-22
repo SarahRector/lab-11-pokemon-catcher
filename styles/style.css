@@ -76,3 +76,6 @@ h1 {
     opacity: .3;
     cursor: not-allowed
 }
+canvas {
+    background-color: white;
+}
