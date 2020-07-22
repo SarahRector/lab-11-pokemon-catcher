@@ -78,4 +78,6 @@ h1 {
 }
 canvas {
     background-color: white;
+    margin: 40px;
+    max-width: 90%;
 }

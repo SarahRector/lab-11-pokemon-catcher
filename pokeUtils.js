@@ -26,7 +26,7 @@ export function getJournal() {
 
 export function encounteredPokemon(pokemonEncountered, id) {
     let encountered = findById(pokemonEncountered, id);
-
+console.log(encountered);
     if (encountered) {
         encountered.encounters++;
 
