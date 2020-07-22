@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 const pokemonCount = document.getElementById('pokemon-count');
 
 const journal = JSON.parse(localStorage.getItem('JOURNAL'));
@@ -28,6 +30,7 @@ function mungeEncountered(journalArray) {
         const pokemonEncountered = journalArray[i];
         encountered.push(pokemonEncountered.encountered);
     }
+    return encountered;
 }
 
 
