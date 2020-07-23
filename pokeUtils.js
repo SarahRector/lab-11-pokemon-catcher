@@ -6,6 +6,7 @@ export function getRandomPokemon(pokemonArray) {
 }
 
 export function findById(pokemonData, id) {
+    
     for (let i = 0; i < pokemonData.length; i++) {
         const pokeData = pokemonData[i];
 
@@ -31,7 +32,7 @@ export function encounteredPokemon(pokemonEncountered, id) {
 
     } else {
         const newEncounter = {
-            id: id,
+            pokemon: id,
             encounters: 1,
             caught: 0
         };
