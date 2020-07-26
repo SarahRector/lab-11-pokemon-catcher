@@ -21,7 +21,7 @@ function setPage() {
         triesTally.textContent = tries++;
     } else if (tries >= 10) {
         
-        window.location = '../results-page/index.html';
+        window.location = './results-page/index.html';
     }
     
     const randomPokemon1 = getRandomPokemon(pokemon);
@@ -64,14 +64,7 @@ function setPage() {
     pokemonImg3.src = randomPokemon3.url_image;
     pokemonName3.textContent = randomPokemon3.pokemon;
 
-    /*const localStorageEncounters = localStorage.getItem('POKEMONENCOUNTERED') || '[]';
-    JSON.parse(localStorageEncounters);
-    
-    pokemonEncountered.push(randomPokemon1, randomPokemon2, randomPokemon3);
-    
-    const stringyEncounters = JSON.stringify(pokemonEncountered);
-    localStorage.setItem('POKEMONENCOUNTERED', stringyEncounters);
-    console.log(stringyEncounters);*/
+
     
     pokemonInput1.addEventListener('click', eventHandler);
     pokemonInput2.addEventListener('click', eventHandler);
